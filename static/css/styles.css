@@ -1,0 +1,91 @@
+
+body {
+  background: white;
+  color: #222222;
+  padding: 0;
+  margin: 0;
+  font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
+  font-weight: normal;
+  font-style: normal;
+  line-height: 1.5;
+  position: relative;
+  cursor: auto; }
+
+
+
+a {
+  color: #008cba;
+  text-decoration: none;
+  line-height: inherit; }
+
+p {
+  font-family: inherit;
+  font-weight: normal;
+  font-size: 1rem;
+  line-height: 1.6;
+  /*text-rendering: optimizeLegibility; */
+  margin-top:5px;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+
+hr {
+  border: solid #dddddd;
+  border-width: 1px 0 0;
+  height: 0; }
+
+.list_collection{
+  float:left;
+}
+
+.list_collection{
+  float:left;
+  padding-left:5px;
+  padding-right:5px;
+  border-right: 1px solid #dddddd;
+  }
+
+.header{
+  border-bottom: 1px solid #dddddd;
+  margin:0px;
+}
+
+.key{
+  color:red;
+}
+
+.dict_list_key, 
+.dict_dict_list_key, 
+.dict_str_key{
+  margin-left:10px;
+}
+.dict_dict_list_key{
+  color:green;
+}
+.dict_list_key{
+  color:green;
+}
+.dict_str_key{
+  color:red;
+}
+
+.col_count{
+  color:red;
+  float:right;
+  margin-right:5px;
+}
+
+.title_dashboard{
+  float:left;
+}
+.form{
+  float:right;
+}
+
+.documents{
+  margin-left: 280px;
+}
+.list_documents_line{
+  border: 1px solid black;
+}

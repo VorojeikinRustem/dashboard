@@ -1,0 +1,18 @@
+
+<div class="header_dashboard">
+
+	<div class="title_dashboard">
+		Dashboard: {{ collection }}(Count: {{ count_documents }})
+	</div>.<!-- FIX THAT DOT LATER -->
+	<div class="form">
+		<form action="/{{ collection }}/" method="post">
+			{% csrf_token %}
+			<input type='hidden' name='collection' value='{{ collection }}' />
+			<label for="search_key">Search key: </label>
+			<input type="text" name="search_key">
+			<label for="search_value">Search value:</label>
+			<input type="text" name="search_value">
+			<input type="submit" class="button" value="submit">
+		</form>
+	</div>
+</div>

@@ -1,0 +1,29 @@
+{% load dict_filters %}
+
+<div class="pagination">
+	<a href="/{{ collection }}/1/">First</a>
+	<a href="/{{collection }}/{{ pagination_previous_element }}/">prev</a>
+	{{ page_number }} of {{ pagination_last_element }}
+	<a href="/{{collection }}/{{ pagination_next_element }}/">next</a>
+	<a href="/{{collection }}/{{ pagination_last_element }}/">Last</a>
+</div>
+<div>
+{% if collection and search_key and search_value %}
+	<p>From '{{ collection }}' get '{{ search_key }}'' : '{{search_value }}'.</p>
+{% endif %}
+</div>
+<div class="list_documents">
+	{% for d in documents %}
+		<div class="list_documents_line">
+			{% for k, v in d.iteritems %}
+				{{ k }}: {{ v|dict_field|safe }}
+			{% endfor %}
+		</div>
+		<div class="list_documents_elements">
+			{% for k, v in d.iteritems %}
+				<div><span class="key">{{ k }}:</span> {{ v|dict_field|safe }}</div>
+			{% endfor %}
+		</div>
+		<hr>
+	{% endfor %}
+</div>

@@ -1,0 +1,33 @@
+{% load staticfiles %}
+<html>
+<head>
+	<title>Dashboard</title>
+	<link rel="stylesheet" type="text/css" href="{% static '../static/css/styles.css' %}">
+	<script type="text/javascript" src="{% static 'js/jquery.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/scripts.js' %}"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('.dict_dict_list_dict_key').hide();
+			$('.dict_dict').click(function(){
+				$(this).next().slideToggle();
+			});
+		});
+	</script>
+</head>
+
+
+
+<body>
+<div class="header">
+	{% include 'header.html' %}
+</div>
+<div class="content">
+	<div class="list_collection">
+		{% include 'list_collections.html' %}
+	</div>
+	<div class="documents">
+		{% include 'list_documents.html' %}
+	</div>
+</div>
+</body>	
+</html>
