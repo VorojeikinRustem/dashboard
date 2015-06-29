@@ -1,4 +1,4 @@
-
+/*
 body {
   background: white;
   color: #222222;
@@ -23,7 +23,6 @@ p {
   font-weight: normal;
   font-size: 1rem;
   line-height: 1.6;
-  /*text-rendering: optimizeLegibility; */
   margin-top:5px;
   margin-bottom: 10px;
   font-size: 14px;
@@ -88,4 +87,65 @@ hr {
 }
 .list_documents_line{
   border: 1px solid black;
+}*/
+
+.form-signin{
+  max-width: 300px;
+  padding: 19px 29px 29px;
+  margin: 0 auto 20px;
+  background-color: #fff;
+  border: 1px solid #e5e5e5;
+  -webkit-border-radius: 5px;
+     -moz-border-radius: 5px;
+          border-radius: 5px;
+  -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+     -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+          box-shadow: 0 1px 2px rgba(0,0,0,.05);
+}
+
+.form-signin .form-signin-heading{
+  margin-bottom: 10px;
+}
+
+.form-signin input[type="text"],
+.form-signin input[type="password"] {
+  font-size: 16px;
+  height: auto;
+  margin-bottom: 15px;
+  padding: 7px 9px;
+}
+
+.user_alert{
+  max-width: 300px;
+  margin: 0 auto 20px;
+}
+.span2 blockquote .text-info{
+  margin-top:5px;
+}
+
+.logout{
+  margin-top: 9px;
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+
+/*
+.span5 .pagination{
+  padding:50px;
+}
+*/
+
+.show-documents{
+  width: 500px;
+}
+.container-fluid{
+  min-width: 1200px;
+}
+
+.str-list{
+  margin-left:20px;
+}
+
+.str-list-item{
+  margin-left:40px;
 }

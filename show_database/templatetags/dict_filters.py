@@ -2,38 +2,31 @@
 # -*- coding: utf8 -*-
 
 import sys
+from django import template
 reload(sys)
 sys.setdefaultencoding('utf8')
-
-from django import template
-import urlparse
 
 register = template.Library()
 
 @register.filter
 def dict_field(value):
-	rez=""
+	rez="<i class='icon-circle-arrow-down'></i></p></div><div class='show-dict-item'>"
 	if isinstance(value, dict):
 		for k in value.keys():
 			key = value.get(k)
 			if isinstance(key, list):
-				rez += "<div class='dict_list'>LIST:<span class='dict_list_key'>" + k + "</span>: <div class='next_dict'>"
+				rez += "<p class='str-list'><span class='text-error'>" + k + "</span>: </p>"
+				i=0
 				for k_dict in key:
-					rez += k_dict + "; "
-				rez += "</div></div>"
+					rez += "<p class='str-list-item'><span class='text-error'>[" + str(i) + "]</span>: <span  class='text-success'>" + k_dict + "</span></p>"
+					i+=1
 			elif isinstance(key, dict):
-				rez += "<div class='dict_dict'>DICT: <span class='dict_dict_list_key'>" + k + "</span>: <div>"
+				rez += "<p class='str-list'><span class='text-error'>" + k + "</span>: </p>"
 				for k_dict in key.keys():
 					v_dict = key.get(k_dict)
-					rez += "<span class='dict_dict_list_dict_key'>" + k_dict + ": </span> " + str(v_dict) + "; "
-				rez += "</div></div>"
+					rez += "<p class='str-list-item'><span class='text-error'>" + k_dict + "</span> :<span class='text-success'>" + str(v_dict) + "</span></p>"
 			else:
-				#FIX BUG LATTER (Crawler_productdescription on Last page, UnicodeEncodeError)
-				rez += "<div>STR:<span class='dict_str_key'>"+ u'%s' % str(k) + "</span>: " + u'%s' % str(key) + "</div>"
-				#repr(i).decode('unicode_escape')
-		return rez
+				rez += "<p class='str-list'><span class='text-error'>"+ u'%s' % str(k) + "</span>: <span class='text-success'>" + u'%s' % str(key) + "</span></p>"
+		return rez+"</div>"
 	else:
-		return value
-	
-
-#  margin-left:15px;
+		return "<span class='text-success'>" + unicode(value) + "</span></p></div>"

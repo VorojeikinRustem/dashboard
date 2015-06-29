@@ -1,18 +1,29 @@
 
-<div class="header_dashboard">
-
-	<div class="title_dashboard">
-		Dashboard: {{ collection }}(Count: {{ count_documents }})
-	</div>.<!-- FIX THAT DOT LATER -->
-	<div class="form">
-		<form action="/{{ collection }}/" method="post">
-			{% csrf_token %}
-			<input type='hidden' name='collection' value='{{ collection }}' />
-			<label for="search_key">Search key: </label>
-			<input type="text" name="search_key">
-			<label for="search_value">Search value:</label>
-			<input type="text" name="search_value">
-			<input type="submit" class="button" value="submit">
-		</form>
+<div class="navbar navbar-inverse navbar-fixed-top">
+	<div class="navbar-inner">
+		<div style="align:center" class="container">
+			<a class="brand" href="{% if preset %}/{{ preset }}{% endif %}/">Dashboard{% if preset %}({{ preset|truncatechars:12 }}){% endif %}</a>
+			<div class="nav-collapse collapse">
+				<ul class="nav">
+					<li>
+						<a href="/{{ preset }}/configuration/">Configuration</a>
+					</li>
+				</ul>
+				{% if database %}
+					<div class="span5">
+						<form class="navbar-form pull-right form-inline" action="/{{ preset }}/{{ database }}/{{ collection }}/" method="post">
+							{% csrf_token %}
+							<input type='hidden' name='collection' value='{{ collection }}'/>
+							<input class="input-block-level input-medium" type="text" name="search_key" placeholder="Key"> 
+							<input class="input-block-level input-medium" type="text" name="search_value" placeholder="Value">
+							<input class="btn btn-primary" type="submit" value="Search">
+						</form>
+					</div>
+				{% endif %}
+				<div class="logout span2 pull-right">
+					<a href="/logout/"><i class="icon-off icon-white"> </i> Logout({{ user }})</a>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>

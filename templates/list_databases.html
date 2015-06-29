@@ -1,0 +1,11 @@
+{% if databases %}
+	<div>
+		<ul class="nav nav-pills ">
+			{% for database in databases %}
+			<li>
+				<a href="/{{ preset }}/{{ database }}/">{{ database }}</a>
+			</li>
+			{% endfor %}
+		</ul>
+	</div>
+{% endif %}

@@ -1,29 +1,75 @@
-{% load dict_filters %}
+{% extends "main.html" %}
 
-<div class="pagination">
-	<a href="/{{ collection }}/1/">First</a>
-	<a href="/{{collection }}/{{ pagination_previous_element }}/">prev</a>
-	{{ page_number }} of {{ pagination_last_element }}
-	<a href="/{{collection }}/{{ pagination_next_element }}/">next</a>
-	<a href="/{{collection }}/{{ pagination_last_element }}/">Last</a>
-</div>
-<div>
-{% if collection and search_key and search_value %}
-	<p>From '{{ collection }}' get '{{ search_key }}'' : '{{search_value }}'.</p>
-{% endif %}
-</div>
-<div class="list_documents">
-	{% for d in documents %}
-		<div class="list_documents_line">
-			{% for k, v in d.iteritems %}
-				{{ k }}: {{ v|dict_field|safe }}
-			{% endfor %}
+{% block documents %}
+		{% load dict_filters %}
+		<div class="container">
+			<div class="row-fluid">
+				<div class="span8">
+					{% include 'list_databases.html' %}
+				</div>
+				{% if collection and count_documents %}
+					<div class="span2">
+						<blockquote><p class="text-info">{{ page_number }} of {{ pagination_last_element }}</p></blockquote>
+					</div>
+					<div class="span2">
+						<div class="">
+							<div class="row-fluid">
+								<div class="btn-group">
+									<a href="/{{ preset }}/{{ database }}/{{ collection }}/1/"><button class="btn btn-primary"><i class="icon-backward"></i></button></a>
+									<a href="/{{ preset }}/{{ database }}/{{collection }}/{{ pagination_previous_element }}/"><button class="btn btn-primary"><i class="icon-chevron-left"></i></button></a>
+									<a href="/{{ preset }}/{{ database }}/{{collection }}/{{ pagination_next_element }}/"><button class="btn btn-primary"><i class="icon-chevron-right"></i></button></a>
+									<a href="/{{ preset }}/{{ database }}/{{collection }}/{{ pagination_last_element }}/"><button class="btn btn-primary"><i class="icon-forward"></i></button></a>
+								</div>
+							</div>
+						</div>
+					</div>
+				{% endif %}
+			</div>
+			<div>
+				{% if collection %}
+					<ul class="breadcrumb">
+					{% if db_user %}<li>User: {{ db_user }}<span class="divider">|</span></li>{% endif %}
+					
+						<li>Database: {{ database }}<span class="divider">/</span></li>
+						{% if count_documents %}
+							<li>{{ collection }}({{ count_documents }})<span class="divider">/</span></li>
+							{% if  search_key and search_value %}
+								<li>{{ search_key }}<span class="divider">:</span></li>
+								<li>{{search_value }}<span class="divider">/</span></li>
+							{% endif %}
+						{% endif %}
+					</ul>
+				{% endif %}
+			</div>
+			<div class="show-documents">
+			{% if documents2 %}
+				<table class="table table-condensed table-striped table-bordered">
+				<thead>
+					<tr>
+						{% for k1 in documents2 %}
+							<th>{{ k1 }}</th>
+						{% endfor %}
+					</tr>
+				</thead>
+					<tbody class="show-documents">
+						{% for d in documents %}
+							<tr class="small-success">
+								{% for k, v in d.items %}
+									<td>{{ v|truncatechars:40|safe }}</td>
+								{% endfor %}
+							</tr>
+							<tr class="full-success">
+								<td colspan="{{ d|length }}">
+									{% for k, v in d.iteritems %}
+										<div class="show-toggle-json"><p><span class="text-error">{{ k }}:</span> {{ v|dict_field|safe }}
+									{% endfor %}
+								</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			{% endif %}
+			</div>
 		</div>
-		<div class="list_documents_elements">
-			{% for k, v in d.iteritems %}
-				<div><span class="key">{{ k }}:</span> {{ v|dict_field|safe }}</div>
-			{% endfor %}
-		</div>
-		<hr>
-	{% endfor %}
-</div>
+
+{% endblock %}

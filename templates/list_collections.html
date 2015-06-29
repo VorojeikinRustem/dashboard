@@ -1,4 +1,8 @@
-
-{% for el in collections %}
-<p><a href="/{{ el.name }}/1/">{{ el.name }} </a> <span class="col_count"> {{ el.kol }}</span></p>
-{% endfor %}
+<div class="well slidebar-nav" style="min-width:200px">
+	<ul class="nav nav-list">
+		<li class="nav-header">Collections:</li>
+		{% for el in collections %}
+		<li><a href="/{{ preset }}/{{ database }}/{{ el.name }}/1/">{{ el.name }} <span class="label cout_collection_documents">{{ el.kol }}</span></a> </li>
+		{% endfor %}
+	</ul>
+</div>

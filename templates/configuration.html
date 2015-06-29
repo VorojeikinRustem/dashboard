@@ -1,0 +1,135 @@
+{% extends "main.html" %}
+
+{% block configuration %}
+
+<div class="container">
+	<div class="tabbable">
+		<ul class="nav nav-tabs">
+			<li><a href="#tab1" data-toggle="tab">Current preset</a></li>
+			<li class="active"><a href="#tab2" data-toggle="tab">Presets</a></li>
+			<li><a href="#tab3" data-toggle="tab">Copy presets</a></li>
+			<li><a href="#tab4" data-toggle="tab">Delete Preset</a></li>
+			<li><a href="#tab5" data-toggle="tab">New Preset</a></li>
+		</ul>
+	</div>
+	<div class="tab-content">
+		<div class="tab-pane" id="tab1">
+			<ul class="nav nav-pills ">
+				<li style="margin-right:20px;">
+					<p>Name: <a href="/{{ cur_preset }}/">{{ cur_preset }}</a></p>
+					<p>Host: {{ cur_host }}</p>
+					<p>Port: {{ cur_port }}</p>
+					<p>Login: {{ cur_username}}</p>
+					<p>Password: {{ cur_password }}</p>
+					<p>Role: {{ cur_role }}</p>
+				</li>
+			</ul>
+		</div>
+		<div class="tab-pane active" id="tab2">
+			{% if dbs_copy_complete %}
+				<div class="row-fluid">
+					<div class="alert alert-success">
+						<button type="button" class="close" data-dismiss="alert"><i class="icon-remove"></i></button>
+						<p><strong>Copying databases successfully completed</strong></p>
+					</div>
+				</div>
+			{% endif %}
+			{% if error_copy %}
+				<div class="alert alert-error">
+					<button type="button" class="close" data-dismiss="alert"><i class="icon-remove"></i></button>
+					<p><strong>Error. </strong>Error occurred while copying data base.</p>
+				</div>
+			{% endif %}
+			<ul class="nav nav-pills ">
+				{% for preset in presets %}
+					<li style="margin-right:20px;">
+						<p>Name: <a href="/{{ preset.name }}/">{{ preset.name }}</a></p>
+						<p>Host: {{ preset.host }}</p>
+						<p>Port: {{ preset.port }}</p>
+						<p>Login: {{ preset.login}}</p>
+						<p>Password: {{ preset.password }}</p>
+						<p>Role: {{ preset.role }}</p>
+					</li>
+				{% endfor %}
+			</ul>
+		</div>
+		<div class="tab-pane" id="tab3">
+			<form class="form-vertical" action="/copy/" method="post">
+				{% csrf_token %}
+				<div class="row-fluid">
+					<div class="span3">
+						<p>From:</p>
+						{% for p1 in presets_read %}
+						<label class="radio">
+							<input class="pres1" type="radio" name="group1" value="{{ p1.name }}">{{ p1.name }}
+						</label>
+						{% endfor %}
+					</div>
+					<div class="span3">
+						<div class="to_radio">
+							<p>To:</p>
+							{% for p2 in presets_readWrite %}
+								<label class="radio">
+									<input class="pres2" type="radio" name="group2" value="{{ p2.name }}">{{ p2.name }}
+								</label>
+							{% endfor %}
+						</div>
+					</div>
+				</div>
+				<div class="from_to">
+					<p>From <span class="from"></span> to <span class="to"></span></p>
+				</div>
+				<div>
+					<input type="submit" value="Copy">
+				</div>
+			</form>
+		</div>
+		<div class="tab-pane" id="tab4">
+			<form action="/del/" method="post">
+				{% csrf_token %}
+				<ul class="nav">
+					{% for preset in presets %}
+						<label class="radio">
+							<li>
+								<p><input type="radio" name="del" value="{{ preset.name }}">{{ preset.name }}</p>
+							</li>
+						</label>
+					{% endfor %}
+				</ul>
+				<input type="submit" value="Delete">
+			</form>
+		</div>
+		<div class="tab-pane" id="tab5">
+			<form class="form-vertical" action="/add/" method="post">
+				{% csrf_token %}
+				<div>
+					<input type="text" name="name" placeholder="Preset name">
+				</div>
+				<div>
+					<input type="text" name="username" placeholder="username">
+				</div>
+				<div>
+					<input type="text" name="password" placeholder="password">
+				</div>
+				<div>
+					<input type="text" name="host" placeholder="host">
+				</div>
+				<div>
+					<input type="text" name="port" placeholder="port">
+				</div>
+				<p>Role:</p>
+				<label class="radio">
+					<input type="radio" name="role" value="read">read
+				</label>
+				<label class="radio">
+					<input type="radio" name="role" value="readWrite">readWrite
+				</label>
+				<div>
+					<input type="submit" value="Add present">
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+{% endblock %}
